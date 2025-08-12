@@ -1,14 +1,33 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import Home from './pages/Home';
+import Products from './pages/Products';
+import Contact from './pages/Contact';
+import './App.css';
 
-const Header = () => (
-  <header style={{ padding: '1rem', backgroundColor: '#f4f4f4' }}>
-    <nav style={{ display: 'flex', gap: '1rem' }}>
-      <Link to="/">Home</Link>
-      <Link to="/products">Products</Link>
-      <Link to="/contact">Contact</Link>
-    </nav>
-  </header>
-);
+function App() {
+  const [darkMode, setDarkMode] = useState(false);
 
-export default Header;
+  return (
+    <div className={darkMode ? 'app dark' : 'app'}>
+      <Router>
+        <Header />
+        <main className="main-content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+        </main>
+        <Footer />
+        <button className="dark-toggle" onClick={() => setDarkMode(!darkMode)}>
+          {darkMode ? '☀️ Light Mode' : '🌙 Dark Mode'}
+        </button>
+      </Router>
+    </div>
+  );
+}
+
+export default App;
