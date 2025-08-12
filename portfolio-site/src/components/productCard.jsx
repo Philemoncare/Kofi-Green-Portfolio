@@ -1,12 +1,26 @@
 import React from 'react';
+import './ProductCard.css';
 
-const ProductCard = ({ product }) => (
-  <div style={{ border: '1px solid #ddd', padding: '1rem', borderRadius: '8px' }}>
-    <img src={`/images/${product.image}`} alt={product.name} style={{ width: '100%', height: '150px', objectFit: 'cover' }} />
-    <h3>{product.name}</h3>
-    <p>${product.price.toFixed(2)}</p>
-    <p style={{ fontStyle: 'italic' }}>{product.category}</p>
-  </div>
-);
+const ProductCard = ({ product }) => {
+  const { image, name, price, category, description } = product;
+
+  return (
+    <div className="product-card">
+      <img 
+        src={image} 
+        alt={name} 
+        className="product-image" 
+        loading="lazy"
+      />
+      <div className="product-info">
+        <h3 className="product-title">{name}</h3>
+        <p className="product-description">{description}</p>
+        <p className="product-price">GHS {price.toFixed(2)}</p>
+        <p className="product-category">{category}</p>
+        <button className="product-button">View Details</button>
+      </div>
+    </div>
+  );
+};
 
 export default ProductCard;

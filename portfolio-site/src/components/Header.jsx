@@ -1,17 +1,47 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import './Header.css';
 
-const Header = () => (
-  <header style={{ padding: '1rem', backgroundColor: '#333', color: '#fff' }}>
-    <nav style={{ display: 'flex', justifyContent: 'space-between' }}>
-      <h1>My Portfolio</h1>
-      <div>
-        <Link to="/" style={{ margin: '0 1rem', color: '#fff' }}>Home</Link>
-        <Link to="/products" style={{ margin: '0 1rem', color: '#fff' }}>Products</Link>
-        <Link to="/contact" style={{ margin: '0 1rem', color: '#fff' }}>Contact</Link>
-      </div>
-    </nav>
-  </header>
-);
+const Header = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
+  return (
+    <header className="header">
+      <nav className="nav">
+        <div className="nav-brand">
+          <Link to="/" className="logo">
+            <span className="logo-icon">🌾</span>
+            Kofi Green's Farm
+          </Link>
+        </div>
+        
+        <div className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
+          <Link to="/" className={`nav-link ${location.pathname === '/' ? 'active' : ''}`} onClick={closeMenu}>
+            Home
+          </Link>
+          <Link to="/products" className={`nav-link ${location.pathname === '/products' ? 'active' : ''}`} onClick={closeMenu}>
+            Products
+          </Link>
+          <Link to="/contact" className={`nav-link ${location.pathname === '/contact' ? 'active' : ''}`} onClick={closeMenu}>
+            Contact
+          </Link>
+        </div>
+        
+        <div className="mobile-menu-toggle" onClick={toggleMenu}>
+          <span className={`hamburger ${isMenuOpen ? 'active' : ''}`}></span>
+        </div>
+      </nav>
+    </header>
+  );
+};
 
 export default Header;
