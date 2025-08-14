@@ -7,7 +7,7 @@ const ProductCard = ({ product }) => {
   return (
     <div className="product-card">
       <img 
-        src={image} 
+        src={`${process.env.PUBLIC_URL}${image}`} 
         alt={name} 
         className="product-image" 
         loading="lazy"
